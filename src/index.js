@@ -1,16 +1,14 @@
-const fs = require('fs');
-
-try {
-    // Read the contents of input.txt
-    const data = fs.readFileSync('src/input.txt', 'utf8');
-    
-    // Extract numbers using regex
-    const numbers = data.match(/\d+/g);
-    
-    // Convert strings to numbers and sum them
-    const sum = numbers ? numbers.reduce((acc, curr) => acc + parseInt(curr), 0) : 0;
-    
-    console.log(sum);
-} catch (err) {
-    console.error('Error reading the file:', err);
+const data = fs.readFileSync('./src/input.txt', 'utf8');
+const dbTextToJson = (text) => {
+    const dataArray = text.trim().split('\n').map(line => {
+        const [fruit, qty] = line.split(' ');
+        return { fruit: fruit, quantity: Number(qty) };
+    });
+    return JSON.parse(JSON.stringify(dataArray));
 }
+const arr = dbTextToJson(data)
+const sum = arr.reduce((acc, cur) => {
+    return acc + cur.quantity;
+},0)
+fs.writeFileSync('./src/output.txt', String(sum));
+
