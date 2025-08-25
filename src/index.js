@@ -1,3 +1,4 @@
+const fs = require('fs')
 const data = fs.readFileSync('./src/input.txt', 'utf8');
 const dbTextToJson = (text) => {
     const dataArray = text.trim().split('\n').map(line => {
@@ -11,4 +12,3 @@ const sum = arr.reduce((acc, cur) => {
     return acc + cur.quantity;
 },0)
 fs.writeFileSync('./src/output.txt', String(sum));
-
